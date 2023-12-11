@@ -1,0 +1,28 @@
+<div class="wrapperDos table-responsive row">
+    <div class="col-md-12">
+        <label>Número de vuelo:
+            {{flightCarrier}}{{flightNumber}}</label>
+        <mat-divider style="margin: 0px 0px 10px 0px;"></mat-divider>
+    </div>
+    <div class="col-md-5">
+        <label class="wi">Salida</label>
+        <label class="wi originTittle">{{origin}}</label>
+    </div>
+    <div class="col-md-2" style="font-size: 32px; text-align: center; padding: 2% 0 0 0;">
+        <i class="fa-solid fa-plane"></i>
+    </div>
+    <div class="col-md-5" style="text-align: end;">
+        <label class="wi">Llegada</label>
+        <label class="wi originTittle">{{destination}}</label>
+    </div>
+    <mat-divider style="margin: 0px 0px 10px 0px;"></mat-divider>
+    <div class="col-md-12" style="text-align: center;">
+        <label style="font-weight: 600;">Fecha: </label>
+        <label>{{date}}</label>
+    </div>
+    <mat-divider style="margin: 10px 0px 10px 0px;"></mat-divider>
+    <div class="col-md-12" style="text-align: center;">
+        <label style="font-weight: 600;">Precio: </label>
+        <label>{{price | currency: currency}}</label>
+    </div>
+</div>

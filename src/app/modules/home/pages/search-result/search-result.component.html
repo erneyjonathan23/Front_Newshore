@@ -1,0 +1,52 @@
+<div>
+    <div class="container" style="padding: 10px 10px 20px 10px;">
+        <div class="wrapper">
+            <div class="row" *ngIf="this.data.succeeded">
+                <form class="form-group col-md-4" [formGroup]="form">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Moneda: </mat-label>
+                        <mat-select id="currency" name="currency" #currency formControlName="currency">
+                            <mat-option (click)="ChangeCurrency();" value="USD">Dolar</mat-option>
+                            <mat-option (click)="ChangeCurrency();" value="COP">Peso colombiano</mat-option>
+                            <mat-option (click)="ChangeCurrency();" value="EUR">Euro</mat-option>
+                            <mat-option (click)="ChangeCurrency();" value="CHF">Franco Suizo</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </form>
+            </div>
+            <div *ngIf="this.data.succeeded">
+                <div *ngFor="let flight of flights; let i = index">
+                    <app-card-info-flight [flightCarrier]="flights[i].transport.flightCarrier"
+                        [flightNumber]="flights[i].transport.flightNumber" [origin]="flight.origin"
+                        [destination]="flight.destination" [price]="flight.price * this.currency" [currency]="this.form.value.currency"
+                        [date]="this.form.value.fechaInicio"></app-card-info-flight>
+                </div>
+            </div>
+            <div *ngIf="this.data.succeeded && this.form.value.travel == 1">
+                <label>Regreso</label>
+                <div *ngFor="let flight of flights; let i = index">
+                    <app-card-info-flight [flightCarrier]="flights[i].transport.flightCarrier"
+                        [flightNumber]="flights[i].transport.flightNumber" [destination]="flight.origin"
+                        [origin]="flight.destination" [price]="flight.price * this.currency"
+                        [currency]="this.form.value.currency" [date]="this.form.value.fechaFin"></app-card-info-flight>
+                </div>
+            </div>
+            <div class="wrapperDos table-responsive row" *ngIf="!this.data.succeeded">
+                {{this.data.message}}
+            </div>
+            <div class="wrapperDos table-responsive row">
+                <label class="row">
+                    <div style="float:left;" class="col-md-6">
+                        <label style="font-weight: 600;">Precio: </label>
+                        {{this.journey.price * (this.form.value.travel == 1 ? 2 : 1) * this.currency | currency:
+                        this.form.value.currency}}
+                    </div>
+                    <div class="col-md-6">
+                        <button mat-raised-button class="red" id="buscar-button" (click)="GoBooking();"
+                            style="float:right;">Seleccionar</button>
+                    </div>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

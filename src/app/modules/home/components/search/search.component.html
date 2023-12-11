@@ -1,0 +1,66 @@
+<div class="wrapperSearch">
+    <form #f="ngForm" [formGroup]="this.form">
+        <div class="row">
+            <div class="col-md-12">
+                <mat-radio-group aria-label="Select an option" #travel formControlName="travel">
+                    <mat-radio-button value="1">Ida y regreso</mat-radio-button>
+                    <mat-radio-button value="2">Solo ida</mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div class="col-md-3">
+                <mat-form-field appearance="outline">
+                    <mat-label>Origen:</mat-label>
+                    <input matInput #origin maxlength="3" minlength="3" placeholder="Origen" required
+                        onkeyup="javascript:this.value=this.value.toUpperCase();" formControlName="origin">
+                    <mat-hint align="end">{{origin.value.length}} / 3</mat-hint>
+                </mat-form-field>
+            </div>
+            <div class="col-md-3">
+                <mat-form-field appearance="outline">
+                    <mat-label>Destino:</mat-label>
+                    <input matInput #destination maxlength="3" minlength="3" placeholder="Destino" required
+                        onkeyup="javascript:this.value=this.value.toUpperCase();" formControlName="destination">
+                    <mat-hint align="end">{{destination.value.length}} / 3</mat-hint>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4" *ngIf="this.form.value.travel == 1">
+                <mat-form-field appearance="outline">
+                    <mat-label>Ingrese rango de fechas</mat-label>
+                    <mat-date-range-input [rangePicker]="picker" [min]="this.minDate">
+                        <input matStartDate placeholder="Fecha inicial" #fechaInicio formControlName="fechaInicio">
+                        <input matEndDate placeholder="Fecha final" #fechaFin formControlName="fechaFin">
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4" *ngIf="this.form.value.travel == 2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Ingrese fecha</mat-label>
+                    <input matInput [matDatepicker]="picker" #fechaInicio formControlName="fechaInicio" [min]="this.minDate">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker ></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-md-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Moneda: </mat-label>
+                    <mat-select id="currency" name="currency" #currency formControlName="currency">
+                        <mat-option value="USD">Dolar</mat-option>
+                        <mat-option value="COP">Peso colombiano</mat-option>
+                        <mat-option value="EUR">Euro</mat-option>
+                        <mat-option value="CHF">Franco Suizo</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="container row">
+    <div class="container">
+        <button mat-fab color="primary" style="float: right; margin: -40px 112px 25px 0px; "
+            [disabled]="this.form.invalid" (click)="Search();">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+    </div>
+</div>

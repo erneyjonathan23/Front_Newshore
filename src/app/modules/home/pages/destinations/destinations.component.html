@@ -1,0 +1,13 @@
+<div class="container" style="margin-top:15px;">
+    <div class="row" *ngIf="this.flights.length > 0">
+        <div class="col-md-3" *ngFor="let flight of flights; let i = index">
+            <app-card class="col-md-4" [picture]="i" [title]="flight.departureStation + '-' + flight.arrivalStation"
+                [number]="flight.flightNumber"></app-card>
+        </div>
+    </div>
+    <div *ngIf="this.flights.length > 0">
+        <mat-paginator [length]="this.totalItems" [pageSize]="this.pageSize" [pageSizeOptions]="[8, 16, 24, 32]"
+            aria-label="Select page" (page)="ChangePage($event);">
+        </mat-paginator>
+    </div>
+</div>
